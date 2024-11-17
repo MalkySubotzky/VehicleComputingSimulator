@@ -193,10 +193,16 @@ void Input::s_buildConditions()
     GlobalProperties::controlLogger.logMessage(logger::LogLevel::INFO, "Conditions built successfully");
 }
 
+// Function to set the path to the BSON file - for using specific path for the tests.
+void Input::s_setPathBson()
+{ 
+    // Load the bson file into document
+    document = s_readData("../test/conditions.bson");
+}
+
 // Function that read the bson file
-bson_t *Input::s_readData()
+bson_t *Input::s_readData(string fileName)
 {
-    string fileName = "../conditions.bson";
     ifstream file(fileName, ios::binary);
     if (file.is_open()) {
         // Get the file size
@@ -234,4 +240,4 @@ bson_t *Input::s_readData()
 }
 
 // Load the bson file into document
-bson_t *Input::document = s_readData();
+bson_t *Input::document = s_readData("../conditions.bson");

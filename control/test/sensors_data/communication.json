@@ -1,20 +1,24 @@
 {
     "endianness": "little",
+    "HSMusage": true,
     "fields": [
         {
             "size": 32,
             "type": "signed_int",
-            "name": "Status"
+            "name": "Status",
+            "defaultValue": 100
         },
         {
             "size": 32,
             "type": "signed_int",
-            "name": "Code"
+            "name": "Code",
+            "defaultValue": 100
         },
         {
             "size": 32,
             "type": "signed_int",
-            "name": "Flags"
+            "name": "Flags",
+            "defaultValue": 100
         }
     ]
 }

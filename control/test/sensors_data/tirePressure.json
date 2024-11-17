@@ -1,15 +1,18 @@
 {
     "endianness": "little",
+    "HSMusage": false,
     "fields": [
         {
             "size": 32,
             "type": "float_fixed",
-            "name": "Temperature"
+            "name": "Temperature",
+            "defaultValue": 100
         },
         {
             "size": 32,
             "type": "float_fixed",
-            "name": "Pressure"
+            "name": "Pressure",
+            "defaultValue": 80
         }
     ]
 }

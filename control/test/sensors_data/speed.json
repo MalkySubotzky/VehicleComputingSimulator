@@ -1,20 +1,24 @@
 {
     "endianness": "little",
+    "HSMusage": true,
     "fields": [
         {
             "size": 8,
             "type": "boolean",
-            "name": "Status"
+            "name": "Status",
+            "defaultValue": true
         },
         {
             "size": 64,
             "type": "char_array",
-            "name": "Msg"
+            "name": "Msg",
+            "defaultValue": "average current speed"
         },
         {
             "size": 32,
             "type": "signed_int",
-            "name": "Speed"
+            "name": "Speed",
+            "defaultValue": 100
         }
     ]
 }

@@ -6,7 +6,10 @@
 #include <map>
 #include <unordered_map>
 #include <set>
-#include <optional>
+#include <thread>
+#include <chrono>
+#include <atomic>
+#include <mutex>
 #include "operator_types.h"
 #include "global_properties.h"
 
@@ -20,6 +23,12 @@ public:
     std::string name;
     PacketParser *parser;
     std::map<std::string, Field> fieldsMap;
+
+    // Variables for the timer functions
+    int timeForUpdate;
+    std::atomic<int> timerCounter; // Flag to indicate the remaining time in seconds
+    std::mutex mtx;
+    std::thread timerThread;
 
     // Contains the current values of various fields and a list of basic conditions associated with each field
     std::map<std::string, std::pair<FieldValue, std::vector<BasicCondition *>>> fields;
@@ -35,6 +44,13 @@ public:
 private:
     template <typename T>
     bool applyComparison(T a, T b, OperatorTypes op);
+
+    // Function that running until the timeout is reached and activate the update.
+    void delayedFunction();
+    // Function that activate or reset the timer
+    void startOrResetTimer();
+    // Function that update the fields to be the default values
+    void updateDefualtValues();
 };
 
 #endif  // _SENSOR_H_

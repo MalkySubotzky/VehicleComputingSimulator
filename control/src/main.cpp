@@ -4,7 +4,7 @@
 #include "input.h"
 #include "full_condition.h"
 #include "global_properties.h"
-// #include "../parser_json/src/packet_parser.h"
+
 using namespace std;
 
 int main()
@@ -13,7 +13,9 @@ int main()
     // Build the conditions from the bson file
     Input::s_buildConditions();
 
-    GlobalProperties::controlLogger.logMessage(logger::LogLevel::INFO, "Initialized successfully, Starting Communication...");
+    GlobalProperties::controlLogger.logMessage(
+        logger::LogLevel::INFO,
+        "Initialized successfully, Starting Communication...");
     // Starting communication with the server
     instanceGP.comm->startConnection();
 

@@ -9,8 +9,6 @@ void OperatorNode::updateTree()
     // Update the status of the current node
     this->updateStatus();
 
-    // TODO: Check what would happen if the root was true and we got to it with true
-
     // Check if the status changed
     if (prevStatus != this->status) {
         // Go over all the parents and update them

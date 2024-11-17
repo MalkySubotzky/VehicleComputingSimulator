@@ -25,17 +25,21 @@ int readIdFromJson()
 
     // Check if the input is correct
     if (!f.is_open())
-        GlobalProperties::controlLogger.logMessage(logger::LogLevel::ERROR, "Failed to open config.json");
+        GlobalProperties::controlLogger.logMessage(
+            logger::LogLevel::ERROR, "Failed to open config.json");
     json *data = NULL;
 
     // Try parse to json type
     try {
         data = new json(json::parse(f));
         f.close();
-        GlobalProperties::controlLogger.logMessage(logger::LogLevel::INFO, "The id was successfully read from config.json");
+        GlobalProperties::controlLogger.logMessage(
+            logger::LogLevel::INFO,
+            "The id was successfully read from config.json");
     }
     catch (exception e) {
-        GlobalProperties::controlLogger.logMessage(logger::LogLevel::ERROR, e.what());
+        GlobalProperties::controlLogger.logMessage(logger::LogLevel::ERROR,
+                                                   e.what());
     }
 
     return (*data)["ID"];
@@ -45,10 +49,11 @@ int readIdFromJson()
 GlobalProperties::GlobalProperties()
 {
     controlLogger.logMessage(logger::LogLevel::INFO, "Initializing...");
-    
+
     // Build the sensors according the json file
     Input::s_buildSensors(sensors);
-    controlLogger.logMessage(logger::LogLevel::INFO, "Sensors built successfully");
+    controlLogger.logMessage(logger::LogLevel::INFO,
+                             "Sensors built successfully");
 
     srcID = readIdFromJson();
     // Creating the communication object with the callback function to process the data

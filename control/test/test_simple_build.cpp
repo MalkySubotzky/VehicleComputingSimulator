@@ -118,6 +118,7 @@ TEST(OrAndCondition, ComplexConditionTest)
 
 int main(int argc, char **argv)
 {
+    Input::s_setPathBson();
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

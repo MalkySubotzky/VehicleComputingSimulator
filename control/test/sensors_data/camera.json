@@ -1,22 +1,26 @@
 {
     "endianness": "little",
+    "HSMusage": true,
     "fields": [
         {
             "fields": [
                 {
                     "name": "MessageType",
                     "size": 1,
-                    "type": "unsigned_int"
+                    "type": "unsigned_int",
+                    "defaultValue": 1
                 },
                 {
                     "name": "Level",
                     "size": 3,
-                    "type": "unsigned_int"
+                    "type": "unsigned_int",
+                    "defaultValue": 1
                 },
                 {
                     "name": "ObjectType",
                     "size": 4,
-                    "type": "unsigned_int"
+                    "type": "unsigned_int",
+                    "defaultValue": 1
                 }
             ],
             "name": "AlertDetails",
@@ -26,17 +30,14 @@
         {
             "name": "ObjectDistance",
             "size": 32,
-            "type": "float_fixed"
+            "type": "float_fixed",
+            "defaultValue": 100.0
         },
         {
-            "name": "CarSpeed",
+            "name": "relativeVelocity",
             "size": 32,
-            "type": "unsigned_int"
-        },
-        {
-            "name": "ObjectSpeed",
-            "size": 32,
-            "type": "unsigned_int"
+            "type": "float_fixed",
+            "defaultValue": 100
         }
     ]
 }
