@@ -200,6 +200,28 @@ void FullCondition::activateActions()
         const char *message = action.second.c_str();
         size_t dataSize = strlen(message) + 1;
         uint32_t destID = action.first;
+        if (instanceGP.sensors[destID]->isUsingHSM) {
+            // Get the length of the encrypted data
+            size_t encryptedLength =
+                hsm::getEncryptedLen(instanceGP.srcID, dataSize);
+            uint8_t encryptedData[encryptedLength];
+
+            if (hsm::encryptData((const void *)message, dataSize, encryptedData,
+                                 encryptedLength, instanceGP.srcID, destID)) {
+                instanceGP.controlLogger.logMessage(
+                    logger::LogLevel::INFO,
+                    "The message encrypted successfully");
+                instanceGP.comm->sendMessage(encryptedData, encryptedLength,
+                                             destID, instanceGP.srcID, false);
+            }
+            else {
+                instanceGP.controlLogger.logMessage(
+                    logger::LogLevel::ERROR, "The message encryption failed");
+                instanceGP.comm->sendMessage((void *)message, dataSize, destID,
+                                             instanceGP.srcID, false);
+            }
+        }
+        else
         instanceGP.comm->sendMessage((void *)message, dataSize, destID,
                                      instanceGP.srcID, false);
     }

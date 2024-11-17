@@ -14,6 +14,7 @@
 #include "basic_condition.h"
 #include "root.h"
 #include "condition_factory.h"
+#include "hsm_support.h"
 
 class Root;
 

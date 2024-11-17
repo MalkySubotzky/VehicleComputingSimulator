@@ -13,6 +13,7 @@
 #include "input.h"
 #include "full_condition.h"
 #include "sensor.h"
+#include "hsm_support.h"
 
 #include "../../communication/include/communication.h"
 #include "../../logger/logger.h"
@@ -22,6 +23,8 @@ using json = nlohmann::json;
 class FullCondition;
 // Forward declaration instead of #include
 class Sensor;
+
+constexpr int BITS_IN_BYTE = 8;
 
 // Singleton class managing global properties
 class GlobalProperties {

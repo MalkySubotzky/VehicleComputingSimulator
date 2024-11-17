@@ -54,11 +54,37 @@ void Sensor::updateDefualtValues()
     for (int cId : instanceGP.trueConditions)
         instanceGP.conditions[cId]->activateActions();
 }
+
+bool readHsmUsage(string jsonFilePath)
+{
+    // Read the json file
+    ifstream f(jsonFilePath);
+
+    // Check if the input is correct
+    if (!f.is_open())
+        GlobalProperties::controlLogger.logMessage(
+            logger::LogLevel::ERROR, "Failed to open " + jsonFilePath);
+    json *data = NULL;
+
+    // Try parse to json type
+    try {
+        data = new json(json::parse(f));
+        f.close();
+    }
+    catch (exception e) {
+        GlobalProperties::controlLogger.logMessage(logger::LogLevel::ERROR,
+                                                   e.what());
+    }
+
+    return (bool)(*data)["HSMusage"];
+}
+
 // C-tor initializes the id member variable.
 Sensor::Sensor(int id, string name, string jsonFilePath) : id(id), name(name)
 {
     timeForUpdate = 10;
     timerCounter = 0;
+    isUsingHSM = readHsmUsage(jsonFilePath);
     msgLength = 0;
 
     parser = new PacketParser(jsonFilePath);

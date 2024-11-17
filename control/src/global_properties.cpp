@@ -1,17 +1,25 @@
 #include "global_properties.h"
 using namespace std;
 
-void handleMesseage(uint32_t senderId,void *data)
+void handleMesseage(uint32_t senderId, void *data)
 {
     GlobalProperties &instanceGP = GlobalProperties::getInstance();
+    GlobalProperties::controlLogger.logMessage(
+        logger::LogLevel::INFO, "Received message from id " + senderId);
 
-    GlobalProperties::controlLogger.logMessage(logger::LogLevel::INFO, "Received message from id " + senderId);
+    if (instanceGP.sensors[senderId]->isUsingHSM) {
+        if (hsm::decryptData(data, senderId, instanceGP.srcID)) {
+            instanceGP.controlLogger.logMessage(
+                logger::LogLevel::INFO, "The message dycrypted successfully");
+        }
+        else {
+            instanceGP.controlLogger.logMessage(
+                logger::LogLevel::ERROR, "The message dycryption failed");
+            instanceGP.sensors[senderId]->isUsingHSM = false;
+        }
+    }
 
-    char * msg = "I got message";
-    size_t dataSize = strlen(msg) + 1;
-    instanceGP.comm->sendMessage((void*)msg, dataSize, senderId, instanceGP.srcID, false);
     instanceGP.sensors[senderId]->handleMessage(data);
-
     for (int cId : instanceGP.trueConditions)
         instanceGP.conditions[cId]->activateActions();
 

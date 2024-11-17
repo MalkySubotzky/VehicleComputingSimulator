@@ -1,0 +1,43 @@
+{
+    "endianness": "little",
+    "HSMusage": true,
+    "fields": [
+        {
+            "fields": [
+                {
+                    "name": "MessageType",
+                    "size": 1,
+                    "type": "unsigned_int",
+                    "defaultValue": 1
+                },
+                {
+                    "name": "Level",
+                    "size": 3,
+                    "type": "unsigned_int",
+                    "defaultValue": 1
+                },
+                {
+                    "name": "ObjectType",
+                    "size": 4,
+                    "type": "unsigned_int",
+                    "defaultValue": 1
+                }
+            ],
+            "name": "AlertDetails",
+            "size": 8,
+            "type": "bit_field"
+        },
+        {
+            "name": "ObjectDistance",
+            "size": 32,
+            "type": "float_fixed",
+            "defaultValue": 100.0
+        },
+        {
+            "name": "relativeVelocity",
+            "size": 32,
+            "type": "float_fixed",
+            "defaultValue": 100
+        }
+    ]
+}
